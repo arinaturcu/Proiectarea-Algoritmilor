@@ -1,0 +1,1 @@
+CMakeLists.txt not found in /home/arina/Desktop/ACS/Anul2/SEM-2/PA/pa-lab/skel/lab02 Select CMakeLists.txt

@@ -1,0 +1,133 @@
+Turcu Arina Emanuela 323CA
+==================================== TEMA 1 ====================================
+
+	Pentru rezolvarea problemelor m-am folosit de scheletul de cod pentru 
+C++ din laboratoare.
+
+1. CRYPTO
+    Idee de rezolvare:
+    	- am folosit o abordare greedy
+	- am sortat vectorul de calculatoare dupa puterea de calcul
+	- calculez pretul pentru a face upgrade la toate calculatoarele cu
+	puterea de calcul minima, astfel crescand numarul de monede obtinute
+	intr-o ora;
+	- incerc sa fac upgrade la acele calculatoare pana ajung sa aiba 
+	puterea de calcul egala cu urmatoarea cea mai mica putere de calcul sau
+	cat imi permite bugetul;
+	- repet procesul pana cand banii din buget nu mai ajung ca sa cresc
+	numarul de monede minate intr-o ora
+	- numarul final de monede care se pot obtine pe ora este egal cu 
+	puterea de calcul a calculatorului cu puterea de calcul minima.
+    Complexitate:
+    	- temporala:
+    	Sortare: O(NlogN); Upgrade pentru un grup de calculatoare : O(N);
+    	Daca bugetul este destul de mare, iar calculatoarele au puteri de
+    	calcul foarte diferite (worst case) ajungem sa avem O(N^2)
+    	=> Complexitatea temporala totala : O(N^2).
+    	- spatiala: O(N) pentru ca avem un vector de dimeniune N in care se
+    	pastreaza caracteristicile fiecarui calculator
+    	
+2. STOCKS
+    Idee de rezolvare:
+    	- am folosit o abordare de programare dinamica
+	- se observa ca problema se aseamana cu problema rucsacului (varianta
+	discreta): avem un buget maxim cu care se pot cumpara actiuni si o
+	pierdere maxima acceptabila. Avand deci 2 criterii de luat in
+	considerare, am folosit un array 3D in care prima dimeniune este numarul
+	de actiuni, a doua bugetul si a treia pierderea.
+	- semnificatia valorii din dp[i][j][k] este: avand de ales dintre
+	primele i actiuni, cu bugetul j si pierderea maxima acceptabila k, care
+	este profitul maxim pe care il pot obtine?
+	- valorile din 3D array in care i, j sau k sunt 0 sunt completate cu 0
+	- la fiecare parcurgere verific daca merita sa adaug actiunea (i - 1) 
+	(numerotarea actiunilor incepe de la 0 dar prima dimensiune din dp
+	creste pana la n + 1). Iau in considerare actiunea curenta doar daca
+	o pot cumpara cu bugetul actual si daca nu imi aduce o pierdere peste 
+	limite. Criteriul dupa care decid daca o aleg este profitul adus.
+	- raspunsul final se va gasi in dp[n][b][l].
+    Complexitate:
+    	- temporala: O(n * b * l)
+    	- spatiala : O(n * b * l) pentru dp si O(n) pentru stocarea datelor de
+    	la intrare => O(n * b * l)
+    	
+3. VALLEY
+    Idee de rezolvare:
+	- am folosit o abordare greedy
+	- caut minimul din array pe care il voi considera punctul minim al vaii 
+	si ii pastrez indexul in variabila bottom_index
+	- parcurg vectorul de la inceput pana la bottom_index si verific la
+	fiecare pas daca elementul din fata este mai mare decat elementul curent
+	caz in care il aduc la valoarea elementului curent si ii adun costul la
+	costul final
+	- parcurg vectorul de la final spre fundul vaii si fac acelasi lucru ca 
+	la pasul anterior
+	- aleg sa parcurg de la inceput spre minim si apoi de la final spre
+	minim pentru a minimiza numarul de ore de excavare. Daca as fi parcurs
+	de la minim spre finalul vectorului, solutia nu ar mai fi fost optima
+	- am tratat separat cazurile in care avem 3 elemente in vector si 
+	cazurile in care minimul se afla pe prima sau ultima pozitie din vector
+    Complexitate:
+    	- temporala: avem O(n) pentru gasirea minimului si O(n) pentru
+    	parcurgere pentru numararea orelor de excavare => complexitate spatiala
+    	finala: O(n)
+    	- spatiala: O(n) pentru pastrarea vectorului de numere din datele de
+    	intrare
+    	
+4. RIDGE
+    Idee de rezolvare:
+    	- am folosit o abordare de programare dinamica
+    	- m-am bazat pe faptul ca niciodata nu va fi nevoie sa sap mai mult de
+    	doua unitati dintr-un munte. As sapa una daca un munte vecin ar avea
+    	aceeasi inaltime si doua daca facand asta as ajunge la o inaltime egala
+    	cu celalalt munte vecin. Deci maxim 2 unitati
+    	- m-am folosit de matricea dp, unde dp[i][j] reprezinta costul minim
+    	considerand primele (i + 1) creste montane, sapand din muntele i j
+    	unitati.
+    	- la fiecare pas am considerat costul de a sapa j unitati din muntele i
+    	si costul minim de pe linia (i - 1) care nu duce la un munte de aceeasi
+    	inaltime cu muntele i dupa ce este sapat j unitati
+    	- rezultatul final va fi minimul de pe ultima linie din matricea dp
+    	- daca o sapare nu este valida, adica va duce la o inaltime negativa,
+    	pe pozitia corespunzatoare din dp am pus valoarea maxima posibila pe o
+    	variabila de tip long long (LONG_LONG_MAX)
+    Complexitate:
+    	- temporala: O(n*3) pentru parcurgerea matricei dp => O(n)
+    	- spatiala: O(n*3) pentru matricea dp si O(n) pentru pastrarea 
+    	vectorului de munti => O(n)
+    	
+5. TRIGIGEL
+    Idee de rezolvare:
+	- am folosit o aboradare de programare dinamica
+	- o prima varianta pe care am incercat-o a fost sa pastrez un array dp
+	unde dp[i] reprezinta solutia considerand primele (i + 1) numere din
+	sir. Desi raspunusul era corect, era o varianta ineficienta. Calculam
+	dp[i] astfel:
+
+ 	    dp[i] = (i + 1 + dp[i - 1]);
+
+            for (int j = (i - 1) % 3; j <= i - 4; j = j + 3) {
+                dp[i] += dp[j];
+            }
+            
+        Pornind de la aceasta idee, cu cateva calcule pe hartie am ajuns la
+        formula:
+        
+            dp[i] = 2*dp[i - 1] - dp[i - 2] + dp[i - 3] - dp[i - 4]	
+            
+        - pornind de la aceasta formula, am folosit metoda de exponentiere pe
+        matrice, unde coeficientii din matricea C sunt c_1 = 2, c_2 = -1, 
+        c_3 = 1 si c_4 = -1 si KMAX este 4.
+        - am folosit functiile din laboratorul 4 pentru ridicarea unei matrice
+        la o putere si pentru inmultire a doua matrice (power_matrix si
+        multiply_matrix).
+        - am cosiderat cazurile de baza: (n == 1) => 1, (n == 2) => 3,
+        (n == 3) => 6 si (n == 4) => 10
+        - solutia s-a obtinut inmultind S_4 cu ultima coloana din C, unde S_4
+        este vectorul cu elementele {1, 3, 6, 10}, deci solutia va fi
+        sol = 1 * C[0][3] + 3 * C[1][3] + 6 * C[2][3] + 10 * C[3][3].
+    Compelxitate:
+    	- spatiala: O(KMAX^3) pentru inmultirea de matrice de dimeniune KMAX si
+    	O(log n) pentru ca facem logn pasi in care inmultim matrice 
+    	=> complexitate finala: O(KMAX^2 * logn)
+    	- temporala: O(KMAX^3) pentru stocarea matricelor
+	

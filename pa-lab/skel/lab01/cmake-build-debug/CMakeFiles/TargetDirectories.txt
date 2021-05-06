@@ -1,0 +1,3 @@
+/home/arina/Desktop/ACS/Anul2/SEM-2/PA/pa-lab/skel/lab01/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/arina/Desktop/ACS/Anul2/SEM-2/PA/pa-lab/skel/lab01/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/arina/Desktop/ACS/Anul2/SEM-2/PA/pa-lab/skel/lab01/cmake-build-debug/CMakeFiles/lab01.dir
