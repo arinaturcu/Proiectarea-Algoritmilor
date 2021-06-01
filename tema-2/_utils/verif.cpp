@@ -44,6 +44,29 @@ int main(int argc, char **argv) {
 	}
 
 	long long answer_out, answer_ref;
+	if (!strcmp(name, "adrese.out")) {
+		char c1[1000] = {};
+		char c2[1000] = {};
+		while (fscanf(file_ref, "%s", c1) != -1) {
+			int ret = fscanf(file_out, "%s", c2);
+			if (ret < 0) {
+				DIE(0, "Fisierul de iesire nu contine un numar corespunzator de numere");
+			}
+			if (strcmp(c1, c2)) {
+				char c[2010];
+
+				#ifdef ONLINE_JUDGE
+				sprintf(c, "WA ");
+				#else
+				sprintf(c, "WA %s vs %s", c1, c2);
+				#endif
+
+				DIE(0, c);
+			}
+		}
+		DIE(points, "OK ");
+		return 0;
+	}
 	while (fscanf(file_ref, "%lld", &answer_ref) == 1) {
 		int ret = fscanf(file_out, "%lld", &answer_out);
 		if (ret < 0) {
