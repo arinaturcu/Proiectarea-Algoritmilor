@@ -49,7 +49,7 @@ class Lego {
     }
 
     int max_consecutive(vector<int> terms) {
-        // max sum is (last element times N)
+        // max sum is last element times T
         bool *is_sum = (bool *)calloc(terms.back() * T + 1, sizeof(bool));
         vector<vector<int>> combs;
         vector<int> selected;

@@ -1,0 +1,70 @@
+==================================== TEMA 2 ====================================
+
+1. PODURI
+	Pentru rezolvarea problemei am considerat gridu-ul un graf in care
+fiecare celula este un nod care are ca vecini celulele de la capetele podului.
+Am construit o matrice de distante in care elementul de la pozitia (i, j)
+reprezinta numarul de poduri care au fost parcurse de Gigel pentru a ajunge in
+pozitia (i, j).
+	Am parcurs grid-ul folosind BFS pana cand am ajuns la o pozitie care e
+in afara gridului. Prima cale care rezulta din BFS si ajunge in afara gridului
+este si cea mai scurta, deci cand am gasit prima cale am returnat distanta
+corespunzatoare din matricea de distante + 1.
+	Complexitate: O(N*M), unde N si M sunt numarul de linii si 
+		numarul de coloane ale grid-ului, deci N*M este numarul de
+		noduri din graf.
+		
+2. ADRESE
+	Am folosit o structura numita person care pastreaza numele unei persoane
+si o lista cu adresele de mail asa cum sunt primite de la input. Fiecareia
+dintre aceste persoane i-am asociat un ID (pentru a nu exista confuzie atunci
+cand 2 persoane diferite au acelasi nume).
+	Am construit doua map-uri: unul care retine ca cheie un ID si ca valoare
+o persoana (de tip person) si altul care are ca cheie o adresa si ca valoare
+o lista de ID-uri reprezentand toate persoanele care au adresa respectiva.
+	Fiecare persoana avand asociat un ID, am putut construi un graf in
+care nodurile sunt reprezentate de ID-uri de persoane si exista muchie intre 2
+noduri daca cele doua persoane au o adresa in comun. Astfel toate persoanele
+dintr-o componenta conexa vor fi de fapt acceasi persoana.
+	Parcurgand graful cu DFS, am aflat componentele conexe si am combinat
+persoanele dintr-o componenta conexa intr-o singura persoana reale. Am pus
+toate aceste persoane reale intr-un vector si le-am sortat dupa criteriile 
+precizate in enunt.
+	Complexitate: O(N + M + KlogK), unde N este numarul de 
+		persoane dat in input, M este numarul de muchii din graf si K
+		este numarul de persoane reale rezultate (KlogK este pentru 
+		sortare).
+		
+3. LEGO
+	Pentru a rezolva am avut nevoie de toate combinatiile posibile de 
+tipuri de piese care se pot folosi, adica combinari de K luate cate N, dar 
+fiind nevoie sa le consider doar pe care care contin 1, am generat combinarile
+de toate numerele cuprinse intre 2 si K luate cate N - 1 si am adaugat la
+acestea piesa de dimeniune 1.
+	Apoi, pentru fiecare dintre aceste liste de piese am generat un vector 
+care contine toate combinarile de lungime <= T formate din elementele listei
+putand sa se si repete elemente. Aceste combinari reprezinta termenii sumelor, 
+deci am adunat termenii fiecareia si am aflat numarul de sume consecutive.
+	Am comparat numarul de sume consecutive din fiecare lista de piese si am
+aflat numarul maxim pe care l-am si afisat.
+	Complexitate: O((K-1)!/(N-1)!(K-N)! * N^T)
+	
+4. RETEA
+	Am observat ca daca se elimina un nod care nu este punct de articulatie, 
+numarul de conexiuni care se pierd este 2 * (N - 1) pentru ca se pierd doar
+conexiunile catre nodul scos si de la el catre restul nodurilor. Pentru a afla
+nodurile de articulatie am folosit algoritmul lui Tarjan pentru puncte de
+articulatie asa cum este prezentat in pseudocodul din laborator.
+	Dupa ce am aflat punctele de articulatie, am parcurs nodurile cu un for
+si am verificat daca nodul i este punct de articulatie sau nu. Daca nu este punct
+de articulatie, folosesc formula mentionata mai sus pentru a calcula numarul de
+conexiuni distruse, iar daca este, aflu dimensiunile componentelor conexe
+rezultate dupa eliminarea lui cu un dfs si in functie de asta calculez numaul de
+conexiuni distruse.
+	Complexitate: O((N + M)^2)
+
+
+
+
+
+

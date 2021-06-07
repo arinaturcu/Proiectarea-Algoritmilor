@@ -46,10 +46,11 @@ void Graph::topologicalSort() {
 		q.pop();
 		top_order.push_back(u);
 
-		for (auto itr = adj[u].begin(); itr != adj[u].end(); itr++)
+		for (auto itr = adj[u].begin(); itr != adj[u].end(); itr++) {
 			if (--in_degree[*itr] == 0) {
 				q.push(*itr);
             }
+		}
 
 		cnt++;
 	}
